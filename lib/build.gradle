@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+
+ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
+ext.versionMinor = 0 // New features in a backwards-compatible manner
+ext.versionPatch = 0 // Backwards-compatible bug fixes
+ext.versionClassifier = null // Pre-releases (alpha, beta, rc, SNAPSHOT...)
+
+android {
+
+    compileOptions {
+        sourceCompatibility javaVersion
+        targetCompatibility javaVersion
+    }
+
+    compileSdkVersion androidConfig.compileSdkVersion
+    buildToolsVersion androidConfig.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion androidConfig.minSdkVersion
+        targetSdkVersion androidConfig.targetSdkVersion
+        versionCode generateVersionCode(versionMajor, versionMinor, versionPatch)
+        versionName generateVersionName(versionMajor, versionMinor, versionPatch, versionClassifier)
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    resourcePrefix 'multistateswitch_'
+
+}
+
+dependencies {
+
+    //----------------------------------------------------------------------------------------------
+    // Lib Dependencies
+    //----------------------------------------------------------------------------------------------
+
+    implementation appDependencies.androidXCore
+    implementation appDependencies.annotations
+
+    //----------------------------------------------------------------------------------------------
+    // Testing Dependencies
+    //----------------------------------------------------------------------------------------------
+
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+}

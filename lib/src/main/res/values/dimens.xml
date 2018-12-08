@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="multistateswitch_text_size">16sp</dimen>
+    <dimen name="multistateswitch_selected_text_size">16sp</dimen>
+    <dimen name="multistateswitch_disabled_text_size">16sp</dimen>
+</resources>

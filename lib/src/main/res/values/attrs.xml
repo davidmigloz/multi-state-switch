@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="multistateswitch_MultiStateSwitchStyle" format="reference" />
+
+    <declare-styleable name="MultiStateSwitch">
+
+        <attr name="multistateswitch_background_color" format="color|reference" />
+        <attr name="multistateswitch_text_color" format="color|reference" />
+        <attr name="multistateswitch_text_size" format="dimension|reference" />
+        <attr name="multistateswitch_selected_state_index" format="integer|reference" />
+        <attr name="multistateswitch_selected_background_color" format="color|reference" />
+        <attr name="multistateswitch_selected_text_color" format="color|reference" />
+        <attr name="multistateswitch_selected_text_size" format="dimension|reference" />
+        <attr name="multistateswitch_disabled_state_enabled" format="boolean|reference" />
+        <attr name="multistateswitch_disabled_state_index" format="integer|reference" />
+        <attr name="multistateswitch_disabled_background_color" format="color|reference" />
+        <attr name="multistateswitch_disabled_text_color" format="dimension|reference" />
+        <attr name="multistateswitch_disabled_text_size" format="dimension|reference" />
+
+    </declare-styleable>
+</resources>

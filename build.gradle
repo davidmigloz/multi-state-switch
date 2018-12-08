@@ -1,0 +1,25 @@
+apply from: 'configurations.gradle'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        apply from: 'dependencies.gradle'
+        classpath gradleDependencies.androidGradle
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

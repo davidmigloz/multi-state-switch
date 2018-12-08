@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="multistateswitch_MultiStateSwitch">
+        <item name="multistateswitch_background_color">@color/multistateswitch_light_grey</item>
+        <item name="multistateswitch_text_color">@color/multistateswitch_warm_grey</item>
+        <item name="multistateswitch_text_size">@dimen/multistateswitch_text_size</item>
+        <item name="multistateswitch_selected_state_index">0</item>
+        <item name="multistateswitch_selected_background_color">@color/multistateswitch_mint</item>
+        <item name="multistateswitch_selected_text_color">@color/multistateswitch_white</item>
+        <item name="multistateswitch_selected_text_size">@dimen/multistateswitch_selected_text_size</item>
+        <item name="multistateswitch_disabled_state_enabled">false</item>
+        <item name="multistateswitch_disabled_state_index">0</item>
+        <item name="multistateswitch_disabled_background_color">@color/multistateswitch_white</item>
+        <item name="multistateswitch_disabled_text_color">@color/multistateswitch_water_blue</item>
+        <item name="multistateswitch_disabled_text_size">@dimen/multistateswitch_disabled_text_size</item>
+    </style>
+</resources>

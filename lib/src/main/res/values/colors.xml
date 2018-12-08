@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="multistateswitch_light_grey">#f2f2f0</color>
+    <color name="multistateswitch_warm_grey">#9b9b9b</color>
+    <color name="multistateswitch_mint">#4cc973</color>
+    <color name="multistateswitch_white">#ffffff</color>
+    <color name="multistateswitch_water_blue">#0b88c4</color>
+</resources>

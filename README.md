@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-[CHANGELOG](https://github.com/davidmigloz/number-keyboard/blob/master/CHANGELOG.md)
+[CHANGELOG](https://github.com/davidmigloz/multi-state-switch/blob/master/CHANGELOG.md)
 
 #### Step 3
 

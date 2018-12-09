@@ -213,6 +213,13 @@ public class MultiStateSwitch extends View {
     /**
      * Replaces state.
      */
+    public void replaceState(int stateIndex, @NonNull State state) {
+        replaceState(stateIndex, state, null);
+    }
+
+    /**
+     * Replaces state.
+     */
     public void replaceState(int stateIndex, @NonNull State state, @Nullable StateStyle stateStyle) {
         Objects.requireNonNull(state);
         if(stateIndex >= getNumberStates()) {

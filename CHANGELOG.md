@@ -1,5 +1,9 @@
 # Changelog
 
+## `1.2.0` (10/11/10)
+
+- Allow replacing state directly from a string.
+
 ## `1.1.0` (10/11/10)
 
 - Allow replacing state without styles.

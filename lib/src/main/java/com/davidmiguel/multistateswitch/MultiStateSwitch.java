@@ -220,6 +220,14 @@ public class MultiStateSwitch extends View {
 
     /**
      * Replaces state.
+     * The text will be used for normal, selected and disabled states.
+     */
+    public void replaceState(int stateIndex, @NonNull String stateText) {
+        replaceState(stateIndex, new State(stateText), null);
+    }
+
+    /**
+     * Replaces state.
      */
     public void replaceState(int stateIndex, @NonNull State state) {
         replaceState(stateIndex, state, null);

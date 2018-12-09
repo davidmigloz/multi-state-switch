@@ -164,6 +164,14 @@ public class MultiStateSwitch extends View {
 
     /**
      * Adds state to the switch.
+     * The text will be used for normal, selected and disabled states.
+     */
+    public void addState(@NonNull String stateText) {
+        addState(new State(stateText), null);
+    }
+
+    /**
+     * Adds state to the switch.
      */
     public void addState(@NonNull State state) {
         addState(state, null);
@@ -196,7 +204,7 @@ public class MultiStateSwitch extends View {
      */
     public void addStates(@NonNull List<State> states, @Nullable List<StateStyle> stateStyles) {
         Objects.requireNonNull(states);
-        if(stateStyles != null && states.size() != stateStyles.size()) {
+        if (stateStyles != null && states.size() != stateStyles.size()) {
             throw new IllegalArgumentException("Number of states and styles must be the same");
         }
         if (this.states == null) {
@@ -204,7 +212,7 @@ public class MultiStateSwitch extends View {
         }
         for (int i = 0; i < states.size(); i++) {
             this.states.add(states.get(i));
-            if(stateStyles != null) {
+            if (stateStyles != null) {
                 statesStyles.put(states.size() - 1, stateStyles.get(i));
             }
         }
@@ -222,7 +230,7 @@ public class MultiStateSwitch extends View {
      */
     public void replaceState(int stateIndex, @NonNull State state, @Nullable StateStyle stateStyle) {
         Objects.requireNonNull(state);
-        if(stateIndex >= getNumberStates()) {
+        if (stateIndex >= getNumberStates()) {
             throw new IllegalArgumentException("State index doesn't exist");
         }
         states.set(stateIndex, state);
@@ -310,7 +318,7 @@ public class MultiStateSwitch extends View {
     private StateSelector createStateSelector(int stateIndex) {
         State state = states.get(stateIndex);
         StateStyle stateStyle = statesStyles.get(stateIndex);
-        if(stateStyle == null) {
+        if (stateStyle == null) {
             stateStyle = new StateStyle.Builder().build();
         }
         // Create the drawable representing the state (normal, selected or disabled)
@@ -343,7 +351,7 @@ public class MultiStateSwitch extends View {
         stateTV.setTextColor(textColor);
         stateTV.setMaxLines(1);
         stateTV.setEllipsize(TextUtils.TruncateAt.END);
-        if(textTypeface != null) {
+        if (textTypeface != null) {
             stateTV.setTypeface(textTypeface);
         }
         if (shadow) {
@@ -484,7 +492,7 @@ public class MultiStateSwitch extends View {
                 currentStateCenter.x = normalizedX;
             }
             int action = event.getAction();
-            if(action != MotionEvent.ACTION_UP) {
+            if (action != MotionEvent.ACTION_UP) {
                 determineCenterPositions();
             } else {
                 currentStateCenter.x = statesCenters.get(currentStateIndex).x;
@@ -505,7 +513,7 @@ public class MultiStateSwitch extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(states == null || states.isEmpty()) {
+        if (states == null || states.isEmpty()) {
             return;
         }
         background.draw(canvas);
@@ -545,7 +553,7 @@ public class MultiStateSwitch extends View {
 
     public void addStateListener(@NonNull StateListener stateListener) {
         Objects.requireNonNull(stateListener);
-        if(stateListeners == null) {
+        if (stateListeners == null) {
             stateListeners = new ArrayList<>(1);
         }
         stateListeners.add(stateListener);

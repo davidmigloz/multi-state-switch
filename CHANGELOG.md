@@ -1,5 +1,9 @@
 # Changelog
 
+## `1.2.1` (10/11/10)
+
+- Prevent NPE when selecting state if view not initialised.
+
 ## `1.2.0` (10/11/10)
 
 - Allow replacing state directly from a string.

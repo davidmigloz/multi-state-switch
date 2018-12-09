@@ -81,6 +81,7 @@ public class MultiStateSwitch extends View {
     private Point stateSize = new Point();
     private Point stateRadius = new Point();
 
+    private boolean initialized = false;
     private int currentStateIndex;
     private Point currentStateCenter = new Point();
 
@@ -254,6 +255,7 @@ public class MultiStateSwitch extends View {
         states = new ArrayList<>(size);
         statesStyles = new SparseArray<>(size);
         statesSelectors = new ArrayList<>(size);
+        statesCenters = new ArrayList<>(size);
     }
 
     @Override
@@ -281,6 +283,7 @@ public class MultiStateSwitch extends View {
         populateStates();
         calculateBounds();
         determineCenterPositions(false);
+        initialized = true;
     }
 
     /**
@@ -430,6 +433,10 @@ public class MultiStateSwitch extends View {
      * @param notifyStateListeners if true all the listeners will be notified about the new selected state.
      */
     public void selectState(int index, boolean notifyStateListeners) {
+        if(!initialized) {
+            currentStateIndex = index;
+            return;
+        }
         int validIndex;
         if (index < 0) {
             validIndex = 0;
@@ -475,7 +482,6 @@ public class MultiStateSwitch extends View {
         currentStateCenter.y = getHeight() / 2;
         int size = getNumberStates();
         int stateWidth = backgroundBounds.width() / size;
-        statesCenters = new ArrayList<>(size);
         for (int i = 1; i <= size; i++) {
             statesCenters.add(new Point(backgroundBounds.left + stateWidth * i - stateWidth / 2, currentStateCenter.y));
         }

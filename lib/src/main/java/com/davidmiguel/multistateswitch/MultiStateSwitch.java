@@ -272,7 +272,7 @@ public class MultiStateSwitch extends View {
         calculateDrawingSizes();
         populateStates();
         calculateBounds();
-        determineCenterPositions();
+        determineCenterPositions(false);
     }
 
     /**
@@ -406,9 +406,22 @@ public class MultiStateSwitch extends View {
     }
 
     /**
-     * Selects state.
+     * Selects state in given index.
+     * The listeners will be notified about the new selected state.
+     *
+     * @param index index of the state to select.
      */
     public void selectState(int index) {
+        selectState(index, true);
+    }
+
+    /**
+     * Selects state in given index.
+     *
+     * @param index                index of the state to select.
+     * @param notifyStateListeners if true all the listeners will be notified about the new selected state.
+     */
+    public void selectState(int index, boolean notifyStateListeners) {
         int validIndex;
         if (index < 0) {
             validIndex = 0;
@@ -417,18 +430,18 @@ public class MultiStateSwitch extends View {
         } else {
             validIndex = index;
         }
-        setCurrentState(validIndex, true);
+        setCurrentState(validIndex, true, notifyStateListeners);
         invalidate();
     }
 
     /**
      * Sets current state and notifies the listeners.
      */
-    private void setCurrentState(int currentStateIndex, boolean overwriteCurrentPosition) {
+    private void setCurrentState(int currentStateIndex, boolean overwriteCurrentPosition, boolean notifyStateListeners) {
         if (this.currentStateIndex == currentStateIndex) {
             return;
         }
-        if (stateListeners != null) {
+        if (notifyStateListeners && stateListeners != null) {
             for (StateListener listener : stateListeners) {
                 listener.onStateSelected(currentStateIndex, states.get(currentStateIndex));
             }
@@ -464,7 +477,7 @@ public class MultiStateSwitch extends View {
     /**
      * Determines the center of each state.
      */
-    private void determineCenterPositions() {
+    private void determineCenterPositions(boolean notifyStateListeners) {
         // Determine current item
         int spaceBetween;
         int newCurrentItemIndex = 0;
@@ -476,7 +489,7 @@ public class MultiStateSwitch extends View {
                 minSpace = spaceBetween;
             }
         }
-        setCurrentState(newCurrentItemIndex, false);
+        setCurrentState(newCurrentItemIndex, false, notifyStateListeners);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -492,13 +505,12 @@ public class MultiStateSwitch extends View {
                 currentStateCenter.x = normalizedX;
             }
             int action = event.getAction();
-            if (action != MotionEvent.ACTION_UP) {
-                determineCenterPositions();
+            if (action != MotionEvent.ACTION_UP) { // User finishes swiping
+                determineCenterPositions(true);
             } else {
                 currentStateCenter.x = statesCenters.get(currentStateIndex).x;
             }
             invalidate();
-
             if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_UP) {
                 return true;
             }
@@ -520,20 +532,22 @@ public class MultiStateSwitch extends View {
         // Paint normal states
         for (int i = 0; i < getNumberStates(); i++) {
             Drawable normalStateDrawable = statesSelectors.get(i).getNormal();
-            drawItem(canvas, normalStateDrawable, statesCenters.get(i));
+            drawState(canvas, normalStateDrawable, statesCenters.get(i));
         }
         // Paint selected state
         Drawable selectedStateDrawable = statesSelectors.get(currentStateIndex).getSelected();
-        drawItem(canvas, selectedStateDrawable, currentStateCenter);
+        drawState(canvas, selectedStateDrawable, currentStateCenter);
     }
 
-    private void drawItem(Canvas canvas, Drawable itemDrawable, Point itemCenter) {
-        itemDrawable.setBounds(
-                itemCenter.x - stateRadius.x - shadowStartEndOverflowPx,
-                itemCenter.y - stateRadius.y,
-                itemCenter.x + stateRadius.x + shadowStartEndOverflowPx,
-                shadowHeight);
-        itemDrawable.draw(canvas);
+    /**
+     * Draws a state on the canvas.
+     */
+    private void drawState(Canvas canvas, Drawable stateDrawable, Point stateCenter) {
+        stateDrawable.setBounds(
+                stateCenter.x - stateRadius.x - shadowStartEndOverflowPx,
+                stateCenter.y - stateRadius.y,
+                stateCenter.x + stateRadius.x + shadowStartEndOverflowPx, shadowHeight);
+        stateDrawable.draw(canvas);
     }
 
 
@@ -551,6 +565,9 @@ public class MultiStateSwitch extends View {
         this.textTypeface = textTypeface;
     }
 
+    /**
+     * Adds a state listener to receive state selection changes.
+     */
     public void addStateListener(@NonNull StateListener stateListener) {
         Objects.requireNonNull(stateListener);
         if (stateListeners == null) {

@@ -1,5 +1,9 @@
 # Changelog
 
+## `1.2.2` (11/11/10)
+
+- Fix wrong type for disabled_text_color attribute.
+
 ## `1.2.1` (10/11/10)
 
 - Prevent NPE when selecting state if view not initialised.

@@ -14,7 +14,7 @@
         <attr name="multistateswitch_disabled_state_enabled" format="boolean|reference" />
         <attr name="multistateswitch_disabled_state_index" format="integer|reference" />
         <attr name="multistateswitch_disabled_background_color" format="color|reference" />
-        <attr name="multistateswitch_disabled_text_color" format="dimension|reference" />
+        <attr name="multistateswitch_disabled_text_color" format="color|reference" />
         <attr name="multistateswitch_disabled_text_size" format="dimension|reference" />
 
     </declare-styleable>

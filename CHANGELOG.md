@@ -1,7 +1,8 @@
 # Changelog
 
-## `1.2.2` (11/11/10)
+## `1.3.0` (11/11/10)
 
+- Add extra methods to add states from strings.
 - Fix wrong type for disabled_text_color attribute.
 
 ## `1.2.1` (10/11/10)

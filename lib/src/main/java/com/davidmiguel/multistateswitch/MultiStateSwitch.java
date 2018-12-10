@@ -164,21 +164,6 @@ public class MultiStateSwitch extends View {
     }
 
     /**
-     * Adds state to the switch.
-     * The text will be used for normal, selected and disabled states.
-     */
-    public void addState(@NonNull String stateText) {
-        addState(new State(stateText), null);
-    }
-
-    /**
-     * Adds state to the switch.
-     */
-    public void addState(@NonNull State state) {
-        addState(state, null);
-    }
-
-    /**
      * Adds state to the switch and the displaying style.
      */
     public void addState(@NonNull State state, @Nullable StateStyle stateStyle) {
@@ -193,10 +178,10 @@ public class MultiStateSwitch extends View {
     }
 
     /**
-     * Adds states to the switch.
+     * Adds state to the switch.
      */
-    public void addStates(@NonNull List<State> states) {
-        addStates(states, null);
+    public void addState(@NonNull State state) {
+        addState(state, null);
     }
 
     /**
@@ -217,6 +202,51 @@ public class MultiStateSwitch extends View {
                 statesStyles.put(states.size() - 1, stateStyles.get(i));
             }
         }
+    }
+
+    /**
+     * Adds states to the switch.
+     */
+    public void addStates(@NonNull List<State> states) {
+        addStates(states, null);
+    }
+
+    /**
+     * Adds state to the switch and the displaying style.
+     * The text will be used for normal, selected and disabled states.
+     */
+    public void addStateFromString(@NonNull String stateText, @Nullable StateStyle stateStyle) {
+        addState(new State(stateText), stateStyle);
+    }
+
+    /**
+     * Adds state to the switch.
+     * The text will be used for normal, selected and disabled states.
+     */
+    public void addStateFromString(@NonNull String stateText) {
+        addStateFromString(stateText, null);
+    }
+
+    /**
+     * Adds states to the switch and the displaying styles.
+     * If you provide styles, you have to provide them for every state.
+     * The texts will be used for normal, selected and disabled states.
+     */
+    public void addStatesFromStrings(@NonNull List<String> statesTexts, @Nullable List<StateStyle> stateStyles) {
+        Objects.requireNonNull(statesTexts);
+        List<State> statesList = new ArrayList<>(statesTexts.size());
+        for (String stateText : statesTexts) {
+            statesList.add(new State(stateText));
+        }
+        addStates(statesList, stateStyles);
+    }
+
+    /**
+     * Adds states to the switch.
+     * The texts will be used for normal, selected and disabled states.
+     */
+    public void addStatesFromStrings(@NonNull List<String> statesTexts) {
+        addStatesFromStrings(statesTexts, null);
     }
 
     /**
@@ -433,7 +463,7 @@ public class MultiStateSwitch extends View {
      * @param notifyStateListeners if true all the listeners will be notified about the new selected state.
      */
     public void selectState(int index, boolean notifyStateListeners) {
-        if(!initialized) {
+        if (!initialized) {
             currentStateIndex = index;
             return;
         }

@@ -35,18 +35,17 @@ public class MainActivity extends AppCompatActivity implements StateListener {
     }
 
     private void setupDefaultSwitch() {
-        binding.defaultSwitch.addStates(Arrays.asList(new State("One"), new State("Two"), new State("Three")));
+        binding.defaultSwitch.addStatesFromStrings(Arrays.asList("One", "Two", "Three"));
         binding.defaultSwitch.addStateListener(this);
     }
 
     private void setupDisabledSwitch() {
-        binding.disabledSwitch.addStates(Arrays.asList(new State("€0"), new State("€25"),
-                new State("€50"), new State("€75"), new State("€100")));
+        binding.disabledSwitch.addStatesFromStrings(Arrays.asList("€0","€25", "€50", "€75", "€100"));
         binding.disabledSwitch.addStateListener(this);
     }
 
     private void setupCustomizedSwitch() {
-        binding.customizedSwitch.addState(new State("Cold"), new StateStyle.Builder()
+        binding.customizedSwitch.addStateFromString("Cold", new StateStyle.Builder()
                 .withSelectedBackgroundColor(Color.BLUE)
                 .build());
         binding.customizedSwitch.addState(new State("ON", "OFF", "OFF"), new StateStyle.Builder()
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements StateListener {
                 .withDisabledBackgroundColor(Color.BLACK)
                 .withDisabledTextColor(Color.WHITE)
                 .build());
-        binding.customizedSwitch.addState(new State("Hot"), new StateStyle.Builder()
+        binding.customizedSwitch.addStateFromString("Hot", new StateStyle.Builder()
                 .withSelectedBackgroundColor(Color.RED)
                 .build());
         binding.customizedSwitch.addStateListener(this);

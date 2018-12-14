@@ -5,7 +5,7 @@ ext {
     //----------------------------------------------------------------------------------------------
 
     // Android Plugin for Gradle : https://developer.android.com/studio/releases/gradle-plugin.html#updating-plugin
-    androidGradle = '3.4.0-alpha07'
+    androidGradle = '3.4.0-alpha08'
 
     gradleDependencies = [
             androidGradle: "com.android.tools.build:gradle:${androidGradle}",

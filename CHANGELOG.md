@@ -1,5 +1,9 @@
 # Changelog
 
+## `1.3.1` (14/11/10)
+
+- Fix NPE when trying to create state bitmap #2
+
 ## `1.3.0` (11/11/10)
 
 - Add extra methods to add states from strings.

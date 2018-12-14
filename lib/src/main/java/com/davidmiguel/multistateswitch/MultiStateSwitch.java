@@ -405,13 +405,25 @@ public class MultiStateSwitch extends View {
         stateTV.measure(MeasureSpec.makeMeasureSpec(0 /* any */, View.MeasureSpec.UNSPECIFIED),
                 MeasureSpec.makeMeasureSpec(0 /* any */, View.MeasureSpec.UNSPECIFIED));
         stateTV.layout(0, 0, stateTV.getMeasuredWidth(), stateTV.getMeasuredHeight());
-        stateTV.buildDrawingCache(true);
         // Convert text view to bitmap
-        Bitmap stateBm = Bitmap.createBitmap(stateTV.getDrawingCache());
-        stateTV.setDrawingCacheEnabled(false);
+        Bitmap stateBm = createBitmapFromView(stateTV);
         // Create shadow
         Bitmap shadowBm = createShadow(stateBm, shadowBottomOverflowPx / 2);
         return new BitmapDrawable(getResources(), combineBitmaps(shadowBm, shadow ? 50 : 0, stateBm, shadowTopOverflowPx));
+    }
+
+    /**
+     * Creates a bitmap from a view.
+     */
+    public Bitmap createBitmapFromView(@NonNull View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas);
+        }
+        view.draw(canvas);
+        return returnedBitmap;
     }
 
     /**

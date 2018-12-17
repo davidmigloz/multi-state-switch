@@ -65,6 +65,7 @@ public class MultiStateSwitch extends View {
     private int disabledTextColor;
     @Dimension
     private int disabledTextSize;
+    private int maxNumberStates;
 
     private final Rect drawingArea = new Rect();
 
@@ -135,6 +136,7 @@ public class MultiStateSwitch extends View {
             disabledBackgroundColor = a.getColor(R.styleable.MultiStateSwitch_multistateswitch_disabled_background_color, 0);
             disabledTextColor = a.getColor(R.styleable.MultiStateSwitch_multistateswitch_disabled_text_color, 0);
             disabledTextSize = a.getDimensionPixelSize(R.styleable.MultiStateSwitch_multistateswitch_disabled_text_size, 0);
+            maxNumberStates = a.getInt(R.styleable.MultiStateSwitch_multistateswitch_max_number_states, -1);
         } finally {
             a.recycle();
         }
@@ -158,9 +160,10 @@ public class MultiStateSwitch extends View {
         if (!isInEditMode()) {
             return;
         }
-        addState(new State("ONE"));
-        addState(new State("TWO"));
-        addState(new State("THREE"));
+        int numMockStates = maxNumberStates > 0 ? maxNumberStates : 3;
+        for (int i = 1; i <= numMockStates; i++) {
+            addStateFromString(Integer.toString(i));
+        }
     }
 
     /**
@@ -170,6 +173,9 @@ public class MultiStateSwitch extends View {
         Objects.requireNonNull(state);
         if (states == null) {
             createDataStructures(DEFAULT_NUM_STATES);
+        }
+        if (hasMaxNumberStates() && getNumberStates() >= getMaxNumberStates()) {
+            return;
         }
         states.add(state);
         if (stateStyle != null) {
@@ -197,6 +203,9 @@ public class MultiStateSwitch extends View {
             createDataStructures(states.size());
         }
         for (int i = 0; i < states.size(); i++) {
+            if (hasMaxNumberStates() && getNumberStates() >= getMaxNumberStates()) {
+                return;
+            }
             this.states.add(states.get(i));
             if (stateStyles != null) {
                 statesStyles.put(states.size() - 1, stateStyles.get(i));
@@ -620,6 +629,35 @@ public class MultiStateSwitch extends View {
      */
     public int getNumberStates() {
         return states != null ? states.size() : 0;
+    }
+
+    /**
+     * Sets the max number of states. If you try to add a new state but the number of states is
+     * already maxNumberStates the state will be ignored. By default is -1 which means that there
+     * is no restriction.
+     * This parameter is also used to determine how many states to show in the editor preview. If
+     * it is set to no limit, 3 will be rendered by default, if not the number of states drawn will
+     * match maxNumberStates.
+     */
+    public void setMaxNumberStates(int maxNumberStates) {
+        if (maxNumberStates == 0) {
+            throw new IllegalArgumentException("Max number of states cannot be zero!");
+        }
+        this.maxNumberStates = maxNumberStates;
+    }
+
+    /**
+     * Returns max number of states. By default is -1 which means that there is no restriction.
+     */
+    public int getMaxNumberStates() {
+        return maxNumberStates;
+    }
+
+    /**
+     * Checks whether there is a limit in the number of states or not.
+     */
+    public boolean hasMaxNumberStates() {
+        return getMaxNumberStates() > 0;
     }
 
     /**

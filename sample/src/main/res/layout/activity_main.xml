@@ -44,10 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:layout_marginTop="16dp"
-            app:multistateswitch_disabled_state_enabled="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/disabledLabel" />
+            app:layout_constraintTop_toBottomOf="@id/disabledLabel"
+            app:multistateswitch_disabled_state_enabled="true"
+            app:multistateswitch_max_number_states="5" />
 
         <TextView
             android:id="@+id/customizedLabel"
@@ -66,12 +67,12 @@
             android:layout_marginTop="16dp"
             android:paddingStart="100dp"
             android:paddingEnd="100dp"
-            app:multistateswitch_disabled_state_enabled="true"
-            app:multistateswitch_disabled_state_index="1"
-            app:multistateswitch_selected_state_index="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/customizedLabel" />
+            app:layout_constraintTop_toBottomOf="@id/customizedLabel"
+            app:multistateswitch_disabled_state_enabled="true"
+            app:multistateswitch_disabled_state_index="1"
+            app:multistateswitch_selected_state_index="1" />
 
         <TextView
             android:id="@+id/selectLabel"
@@ -88,27 +89,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cold"
-         app:layout_constraintTop_toBottomOf="@id/selectLabel"
+            app:layout_constraintEnd_toStartOf="@id/select2Btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/select2Btn"/>
+            app:layout_constraintTop_toBottomOf="@id/selectLabel" />
 
         <Button
             android:id="@+id/select2Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/off"
-            app:layout_constraintTop_toBottomOf="@id/selectLabel"
+            app:layout_constraintEnd_toStartOf="@id/select3Btn"
             app:layout_constraintStart_toEndOf="@id/select1Btn"
-            app:layout_constraintEnd_toStartOf="@id/select3Btn"/>
+            app:layout_constraintTop_toBottomOf="@id/selectLabel" />
 
         <Button
             android:id="@+id/select3Btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hot"
-            app:layout_constraintTop_toBottomOf="@id/selectLabel"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/select2Btn"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/selectLabel" />
 
         <TextView
             android:id="@+id/listenerLabel"

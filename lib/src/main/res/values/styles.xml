@@ -13,5 +13,6 @@
         <item name="multistateswitch_disabled_background_color">@color/multistateswitch_white</item>
         <item name="multistateswitch_disabled_text_color">@color/multistateswitch_water_blue</item>
         <item name="multistateswitch_disabled_text_size">@dimen/multistateswitch_disabled_text_size</item>
+        <item name="multistateswitch_max_number_states">-1</item>
     </style>
 </resources>

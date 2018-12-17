@@ -16,6 +16,7 @@
         <attr name="multistateswitch_disabled_background_color" format="color|reference" />
         <attr name="multistateswitch_disabled_text_color" format="color|reference" />
         <attr name="multistateswitch_disabled_text_size" format="dimension|reference" />
+        <attr name="multistateswitch_max_number_states" format="integer|reference" />
 
     </declare-styleable>
 </resources>

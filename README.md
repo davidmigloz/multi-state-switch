@@ -25,7 +25,7 @@ Add the dependency:
 
 ```gradle
 dependencies {
-	compile 'com.github.davidmigloz:multi-state-switch:1.3.1'
+	compile 'com.github.davidmigloz:multi-state-switch:1.4.0'
 }
 ```
 

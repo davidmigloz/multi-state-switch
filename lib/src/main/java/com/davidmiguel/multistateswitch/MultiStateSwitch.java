@@ -274,7 +274,9 @@ public class MultiStateSwitch extends View {
         }
         states.set(stateIndex, state);
         statesStyles.put(stateIndex, stateStyle);
-        statesSelectors.set(stateIndex, createStateSelector(stateIndex));
+        if (hasDrawingArea()) {
+            statesSelectors.set(stateIndex, createStateSelector(stateIndex));
+        }
         invalidate();
     }
 
@@ -306,7 +308,7 @@ public class MultiStateSwitch extends View {
      * Prepares all data needed to draw the view.
      */
     private void populateView() {
-        if (states == null || states.isEmpty() || getWidth() == 0 || getHeight() == 0) {
+        if (getNumberStates() == 0 || !hasDrawingArea()) {
             return;
         }
         calculateDrawingSizes();
@@ -314,6 +316,13 @@ public class MultiStateSwitch extends View {
         calculateBounds();
         determineCenterPositions(false);
         initialized = true;
+    }
+
+    /**
+     * Checks that the drawing area is not 0.
+     */
+    private boolean hasDrawingArea() {
+        return getWidth() != 0 && getHeight() != 0;
     }
 
     /**
@@ -581,7 +590,7 @@ public class MultiStateSwitch extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (states == null || states.isEmpty()) {
+        if (getNumberStates() == 0 || !hasDrawingArea()) {
             return;
         }
         background.draw(canvas);
@@ -605,7 +614,6 @@ public class MultiStateSwitch extends View {
                 stateCenter.x + stateRadius.x + shadowStartEndOverflowPx, shadowHeight);
         stateDrawable.draw(canvas);
     }
-
 
     /**
      * Returns number of states of the switch.

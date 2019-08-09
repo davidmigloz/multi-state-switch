@@ -320,11 +320,14 @@ public class MultiStateSwitch extends View {
         if (getNumberStates() == 0 || !hasDrawingArea()) {
             return;
         }
-        calculateDrawingSizes();
-        populateStates();
-        calculateBounds();
-        determineCenterPositions(false);
-        initialized = true;
+        try {
+            calculateDrawingSizes();
+            populateStates();
+            calculateBounds();
+            determineCenterPositions(false);
+            initialized = true;
+        } catch (Exception e) { // Ignored
+        }
     }
 
     /**

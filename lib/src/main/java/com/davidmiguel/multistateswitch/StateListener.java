@@ -15,5 +15,4 @@ public interface StateListener {
      * @param state      state instance.
      */
     void onStateSelected(int stateIndex, @NonNull State state);
-
 }

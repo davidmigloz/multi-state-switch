@@ -8,11 +8,10 @@ import androidx.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import com.davidmiguel.multistateswitch.R;
 import com.davidmiguel.multistateswitch.State;
 import com.davidmiguel.multistateswitch.StateListener;
 import com.davidmiguel.multistateswitch.StateStyle;
-import com.davidmiguel.multistateswitch.databinding.ActivityMainBinding;
+import com.davidmiguel.multistateswitch.sample.databinding.ActivityMainBinding;
 
 import java.util.Arrays;
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## `1.4.1` (10/08/19)
+
+- Prevent crash when OutOfMemoryError is thrown while creating bitmaps #4
+
 ## `1.4.0` (17/12/18)
 
 - Fix NPE when replacing state before view being measured #3

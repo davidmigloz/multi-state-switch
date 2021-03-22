@@ -9,6 +9,7 @@
 
 **Breaking change:**
 - Minimum API requirements: API >= 21 (Android 5.0 - LOLLIPOP)
+- `replaceState(int stateIndex, String stateText)` renamed to `replaceStateFromString(stateIndex: Int, stateText: String)`
 
 ## `1.4.1` (10/08/19)
 

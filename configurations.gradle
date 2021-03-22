@@ -4,7 +4,7 @@ ext {
 
     androidConfig = [
             buildToolsVersion: "28.0.3", // https://developer.android.com/studio/releases/build-tools
-            minSdkVersion    : 19,
+            minSdkVersion    : 21,
             targetSdkVersion : 28,
             compileSdkVersion: 28
     ]

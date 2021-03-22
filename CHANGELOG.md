@@ -1,9 +1,12 @@
 # Changelog
 
-## `1.5.0` (22/03/21)
+## `2.0.0` (22/03/21)
 
 - Update dependencies
-- Add Kotlin support
+- Migrate to Kotlin #9
+
+**Breaking change:**
+- Minimum API requirements: API >= 21 (Android 5.0 - LOLLIPOP)
 
 ## `1.4.1` (10/08/19)
 

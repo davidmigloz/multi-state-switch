@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".sample.MainActivity">
+        tools:context=".MainActivity">
 
         <TextView
             android:id="@+id/defaultLabel"
@@ -129,6 +129,16 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/listenerLabel" />
+
+        <Button
+            android:id="@+id/viewPagerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_pager_example"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/listener" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

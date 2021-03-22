@@ -9,4 +9,6 @@
     <string name="cold">Cold</string>
     <string name="off">Off</string>
     <string name="hot">Hot</string>
+    <string name="view_pager_example">ViewPager example</string>
+    <string name="view_pager_description">The MultiStateSwitch is able to properly handle touch events even when is inside a ScrollView that is inside a ViewPager:</string>
 </resources>

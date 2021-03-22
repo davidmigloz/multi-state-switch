@@ -36,5 +36,7 @@ dependencies {
     implementation appDependencies.androidXCore
     implementation appDependencies.androidXAnnotations
     implementation appDependencies.appcompat
+    implementation appDependencies.materialComponents
     implementation appDependencies.constraintLayout
+    implementation appDependencies.viewPager2
 }

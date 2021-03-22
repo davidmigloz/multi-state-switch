@@ -3,7 +3,7 @@ package com.davidmiguel.multistateswitch
 /**
  * Listener of state changes.
  */
-interface StateListener {
+fun interface StateListener {
     /**
      * Invoked when a state is selected.
      *

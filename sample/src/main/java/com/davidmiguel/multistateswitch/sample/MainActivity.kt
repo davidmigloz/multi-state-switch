@@ -1,5 +1,6 @@
 package com.davidmiguel.multistateswitch.sample
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.davidmiguel.multistateswitch.State
 import com.davidmiguel.multistateswitch.StateListener
 import com.davidmiguel.multistateswitch.StateStyle
 import com.davidmiguel.multistateswitch.sample.databinding.ActivityMainBinding
+import com.davidmiguel.multistateswitch.sample.viewpager.ViewPagerActivity
 
 class MainActivity : AppCompatActivity(), StateListener {
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity(), StateListener {
         setupDefaultSwitch()
         setupDisabledSwitch()
         setupCustomizedSwitch()
+        setupViewPagerBtn()
     }
 
     override fun onStateSelected(stateIndex: Int, state: State) {
@@ -56,5 +59,11 @@ class MainActivity : AppCompatActivity(), StateListener {
         binding.select1Btn.setOnClickListener { binding.customizedSwitch.selectState(0) }
         binding.select2Btn.setOnClickListener { binding.customizedSwitch.selectState(1) }
         binding.select3Btn.setOnClickListener { binding.customizedSwitch.selectState(2) }
+    }
+
+    private fun setupViewPagerBtn() {
+        binding.viewPagerBtn.setOnClickListener {
+            startActivity(Intent(this, ViewPagerActivity::class.java))
+        }
     }
 }

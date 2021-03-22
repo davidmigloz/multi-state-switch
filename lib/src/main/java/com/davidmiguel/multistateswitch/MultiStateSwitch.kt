@@ -11,14 +11,11 @@ import android.util.AttributeSet
 import android.util.Log
 import android.util.SparseArray
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 // Num of states used in editor preview
@@ -88,6 +85,9 @@ class MultiStateSwitch @JvmOverloads constructor(
     private var initialized: Boolean = false
     private var currentStateIndex: Int = 0
     private val currentStateCenter = Point()
+    private var stateIsPressed: Boolean = false
+    private var touchDownX: Float = 0f
+    private val scaledTouchSlop = ViewConfiguration.get(context).scaledTouchSlop
 
     private var stateListeners: MutableList<StateListener> = ArrayList(1)
 
@@ -272,7 +272,7 @@ class MultiStateSwitch @JvmOverloads constructor(
             try {
                 val selector = createStateSelector(i)
                 statesSelectors.add(selector)
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 Log.e("asdf", "populateStates()", e)
             }
         }
@@ -433,12 +433,12 @@ class MultiStateSwitch @JvmOverloads constructor(
             overwriteCurrentPosition: Boolean,
             notifyStateListeners: Boolean
     ) {
-        if (this.currentStateIndex == currentStateIndex) return
         if (notifyStateListeners) {
             stateListeners.forEach { listener ->
                 listener.onStateSelected(currentStateIndex, states[currentStateIndex])
             }
         }
+        if (this.currentStateIndex == currentStateIndex) return
         this.currentStateIndex = currentStateIndex
         if (overwriteCurrentPosition) {
             currentStateCenter.x = statesCenters[currentStateIndex].x
@@ -486,32 +486,69 @@ class MultiStateSwitch @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (isEnabled) {
-            val normalizedX = getNormalizedX(event)
-            when {
-                // not below x of lowest item
-                normalizedX < statesCenters.first().x -> currentStateCenter.x = statesCenters.first().x
-                // not beyond x of highest item
-                normalizedX > statesCenters.last().x -> currentStateCenter.x = statesCenters.last().x
-                // else just follow finger
-                else -> currentStateCenter.x = normalizedX
+        if (!isEnabled) return false
+        val rawX = event.x
+        val normalizedX = getNormalizedX(event)
+        currentStateCenter.x = when {
+            // Before first item -> cast to start of first item
+            normalizedX < statesCenters.first().x -> statesCenters.first().x
+            // After last item -> cast to end of last item
+            normalizedX > statesCenters.last().x -> statesCenters.last().x
+            // Else just follow finger
+            else -> normalizedX
+        }
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                touchDownX = rawX
+                // If we're inside a vertical scrolling container, we should start dragging in ACTION_MOVE
+                if (!isInVerticalScrollingContainer()) {
+                    parent.requestDisallowInterceptTouchEvent(true)
+                    requestFocus()
+                    stateIsPressed = true
+                    determineCenterPositions(true)
+                    invalidate()
+                }
             }
-            val action = event.action
-            if (action != MotionEvent.ACTION_UP) { // User finishes swiping
+            MotionEvent.ACTION_MOVE -> {
+                if (!stateIsPressed) { // Check if we're trying to scroll vertically instead of dragging this Slider
+                    if (isInVerticalScrollingContainer() && abs(rawX - touchDownX) < scaledTouchSlop) return false
+                    parent.requestDisallowInterceptTouchEvent(true)
+                }
+                stateIsPressed = true
                 determineCenterPositions(true)
-            } else {
-                currentStateCenter.x = statesCenters[currentStateIndex].x
+                invalidate()
             }
-            invalidate()
-            if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_UP) {
-                return true
+            MotionEvent.ACTION_UP -> {
+                if (!stateIsPressed) { // Single touch and we are inside an scrolling container
+                    determineCenterPositions(true)
+                }
+                stateIsPressed = false
+                currentStateCenter.x = statesCenters[currentStateIndex].x // Snap to selected state
+                invalidate()
             }
         }
-        return super.onTouchEvent(event)
+        isPressed = stateIsPressed
+        return true
     }
 
     private fun getNormalizedX(event: MotionEvent): Int {
         return event.x.toInt().coerceAtLeast(stateRadius.x).coerceAtMost(width - stateRadius.y)
+    }
+
+    /**
+     * If this returns true, we can't start dragging the Slider immediately when we receive a MotionEvent.ACTION_DOWN.
+     * Instead, we must wait for a MotionEvent.ACTION_MOVE.
+     * @return true if any of this View's parents is a scrolling View and can scroll vertically.
+     */
+    private fun isInVerticalScrollingContainer(): Boolean {
+        var p = parent
+        while (p is ViewGroup) {
+            val parent = p
+            val canScrollVertically = parent.canScrollVertically(1) || parent.canScrollVertically(-1)
+            if (canScrollVertically && parent.shouldDelayChildPressedState()) return true
+            p = p.getParent()
+        }
+        return false
     }
 
     override fun onDraw(canvas: Canvas) {

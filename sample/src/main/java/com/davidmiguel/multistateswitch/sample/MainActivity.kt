@@ -11,6 +11,7 @@ import com.davidmiguel.multistateswitch.StateListener
 import com.davidmiguel.multistateswitch.StateStyle
 import com.davidmiguel.multistateswitch.sample.databinding.ActivityMainBinding
 import com.davidmiguel.multistateswitch.sample.viewpager.ViewPagerActivity
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(), StateListener {
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(), StateListener {
         setupDefaultSwitch()
         setupDisabledSwitch()
         setupCustomizedSwitch()
+        setupAddRemoveSwitch()
         setupViewPagerBtn()
     }
 
@@ -40,14 +42,24 @@ class MainActivity : AppCompatActivity(), StateListener {
     }
 
     private fun setupCustomizedSwitch() {
-        binding.customizedSwitch.addStateFromString("Cold", StateStyle.Builder()
-                .withSelectedBackgroundColor(Color.BLUE)
-                .build())
-        binding.customizedSwitch.addState(State("ON", "OFF", "OFF"), StateStyle.Builder()
-                .withTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                .withDisabledBackgroundColor(Color.BLACK)
-                .withDisabledTextColor(Color.WHITE)
-                .build())
+        binding.customizedSwitch.addStateFromString(
+                "Cold",
+                StateStyle.Builder()
+                        .withSelectedBackgroundColor(Color.BLUE)
+                        .build()
+        )
+        binding.customizedSwitch.addState(
+                State(
+                    text = "ON",
+                    selectedText = "OFF",
+                    disabledText = "OFF"
+                ),
+                StateStyle.Builder()
+                        .withTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                        .withDisabledBackgroundColor(Color.BLACK)
+                        .withDisabledTextColor(Color.WHITE)
+                        .build()
+        )
         binding.customizedSwitch.addStateFromString("Hot", StateStyle.Builder()
                 .withSelectedBackgroundColor(Color.RED)
                 .build())
@@ -59,6 +71,19 @@ class MainActivity : AppCompatActivity(), StateListener {
         binding.select1Btn.setOnClickListener { binding.customizedSwitch.selectState(0) }
         binding.select2Btn.setOnClickListener { binding.customizedSwitch.selectState(1) }
         binding.select3Btn.setOnClickListener { binding.customizedSwitch.selectState(2) }
+    }
+
+    private fun setupAddRemoveSwitch() {
+        binding.addRemoveSwitch.addStateListener(this)
+        binding.addBtn.setOnClickListener {
+            binding.addRemoveSwitch.addStateFromString("R${Random.nextInt(100)}")
+        }
+        binding.removeBtn.setOnClickListener {
+            val numStates = binding.addRemoveSwitch.getNumberStates()
+            if (numStates > 0) {
+                binding.addRemoveSwitch.removeState(numStates - 1)
+            }
+        }
     }
 
     private fun setupViewPagerBtn() {

@@ -3,12 +3,16 @@
     <string name="default_label">Default settings:</string>
     <string name="disabled_label">With disabled state:</string>
     <string name="customized_label">Customized:</string>
+    <string name="add_remove_label">Add or remove states:</string>
     <string name="listener_label">Last selected state:</string>
     <string name="listener">{ index=%d, text=%s }</string>
     <string name="select_label">Select position:</string>
     <string name="cold">Cold</string>
     <string name="off">Off</string>
     <string name="hot">Hot</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="no_states">No states</string>
     <string name="view_pager_example">ViewPager example</string>
     <string name="view_pager_description">The MultiStateSwitch is able to properly handle touch events even when is inside a ScrollView that is inside a ViewPager:</string>
 </resources>

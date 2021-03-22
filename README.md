@@ -6,6 +6,8 @@ Android library that provides a multi state switch view.
 
 ## Usage
 
+Take a look at [the sample app](https://github.com/davidmigloz/multi-state-switch/tree/master/sample) to see a live example of the capabilities of the library.
+
 #### Step 1
 
 Add the JitPack repository to your `build.gradle ` file:
@@ -41,19 +43,79 @@ Use `MultiStateSwitch` view in your layout:
     ... />
 ```
 
-TODO
+Add states:
+
+```kotlin
+switch.addStatesFromStrings(listOf("One", "Two", "Three"))
+```
+
+Use `StateStyle` to customize the style of the states:
+
+```kotlin
+switch.addStateFromString(
+        "Cold",
+        StateStyle.Builder()
+                .withSelectedBackgroundColor(Color.BLUE)
+                .withDisabledTextColor(Color.WHITE)
+                .build()
+)
+```
+
+Use `State` object if you need to display different text depending on the state's state:
+
+```kotlin
+switch.addState(
+    State(
+        text = "ON",
+        selectedText = "OFF",
+        disabledText = "OFF"
+    )
+)
+```
 
 #### Attributes
 
-TODO
+- `app:multistateswitch_background_color=[color|reference]`
+- `app:multistateswitch_text_color=[color|reference]`
+- `app:multistateswitch_text_size=[dimension|reference]`
+- `app:multistateswitch_selected_state_index=[integer|reference]`
+- `app:multistateswitch_selected_background_color=[color|reference]`
+- `app:multistateswitch_selected_text_color=[color|reference]`
+- `app:multistateswitch_selected_text_size=[dimension|reference]`
+- `app:multistateswitch_disabled_state_enabled=[boolean|reference]`
+- `app:multistateswitch_disabled_state_index=[integer|reference]`
+- `app:multistateswitch_disabled_background_color=[color|reference]`
+- `app:multistateswitch_disabled_text_color=[color|reference]`
+- `app:multistateswitch_disabled_text_size=[dimension|reference]`
+- `app:multistateswitch_max_number_states=[integer|reference]`
 
 #### API
 
-TODO
+- `addState(state: State, stateStyle: StateStyle? = null)`: adds state to the switch.
+- `addStates(states: List<State>, stateStyles: List<StateStyle>? = null)`: adds states to the switch and the displaying styles. If you provide styles, you have to provide them for every state.
+- `addStateFromString(stateText: String, stateStyle: StateStyle? = null)`: adds state to the switch directly from a string. The text will be used for normal, selected and disabled state.
+- `addStatesFromStrings(statesTexts: List<String>, stateStyles: List<StateStyle>? = null)`: adds states to the switch directly from a string and the displaying styles. If you provide styles, you have to provide them for every state. The texts will be used for normal, selected and disabled states.
+- `replaceState(stateIndex: Int, state: State, stateStyle: StateStyle? = null)`: replaces state.
+- `replaceStateFromString(stateIndex: Int, stateText: String)`: replaces state directly from a string. The text will be used for normal, selected and disabled states.
+- `removeState(stateIndex: Int)`: removes an state.
+- `selectState(index: Int, notifyStateListeners: Boolean = true)`: selects state in given index. If `notifyStateListeners` is `true` all the listeners will be notified about the new selected state.
+- `getNumberStates(): Int`: returns number of states of the switch.
+- `setMaxNumberStates(maxNumberStates: Int)`: Sets the max number of states. If you try to add a new state but the number of states is already `maxNumberStates` the state will be ignored. By default is `-1` which means that there is no restriction. This parameter is also used to determine how many states to show in the editor preview. If it is set to no limit, `3` will be rendered by default, if not the number of states drawn will match `maxNumberStates`.
+- `getMaxNumberStates(): Int`: returns max number of states. By default is -1 which means that there is no restriction.
+- `hasMaxNumberStates(): Boolean`: checks whether there is a limit in the number of states or not.
+- `setTextTypeface(textTypeface: Typeface)`: sets typeface.
+- `setPadding(left: Int, top: Int, right: Int, bottom: Int)`
 
-#### Callback
 
-TODO
+#### Listener
+
+To listen to state changes, you have to register a `StateListener`:
+
+```kotlin
+binding.defaultSwitch.addStateListener { stateIndex, state ->
+    // ...
+}
+```
 
 ## Contributing
 

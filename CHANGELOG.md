@@ -2,8 +2,10 @@
 
 ## `2.0.0` (22/03/21)
 
-- Update dependencies
+- Support remove states programmatically #6
+- Support nested scroll when used inside a RecyclerView or ViewPager #8
 - Migrate to Kotlin #9
+- Update dependencies
 
 **Breaking change:**
 - Minimum API requirements: API >= 21 (Android 5.0 - LOLLIPOP)

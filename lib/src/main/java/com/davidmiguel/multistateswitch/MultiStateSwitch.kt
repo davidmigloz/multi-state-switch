@@ -149,6 +149,10 @@ class MultiStateSwitch @JvmOverloads constructor(
         if (hasMaxNumberStates() && getNumberStates() >= getMaxNumberStates()) return
         states.add(state)
         stateStyle?.run { statesStyles.put(getNumberStates() - 1, stateStyle) }
+        if(isAttachedToWindow){
+            populateView()
+            invalidate()
+        }
     }
 
     /**
@@ -164,7 +168,7 @@ class MultiStateSwitch @JvmOverloads constructor(
     }
 
     /**
-     * Adds state to the switch and the displaying style.
+     * Adds state to the switch directly from a string and the displaying style.
      * The text will be used for normal, selected and disabled states.
      */
     @JvmOverloads
@@ -173,7 +177,7 @@ class MultiStateSwitch @JvmOverloads constructor(
     }
 
     /**
-     * Adds states to the switch and the displaying styles.
+     * Adds states to the switch directly from a string and the displaying styles.
      * If you provide styles, you have to provide them for every state.
      * The texts will be used for normal, selected and disabled states.
      */
@@ -199,11 +203,27 @@ class MultiStateSwitch @JvmOverloads constructor(
     }
 
     /**
-     * Replaces state.
+     * Replaces state directly from a string.
      * The text will be used for normal, selected and disabled states.
      */
-    fun replaceState(stateIndex: Int, stateText: String) {
+    fun replaceStateFromString(stateIndex: Int, stateText: String) {
         replaceState(stateIndex, State(stateText))
+    }
+
+    /**
+     * Removes an state.
+     */
+    fun removeState(stateIndex: Int) {
+        require(stateIndex < getNumberStates()) { "State index doesn't exist" }
+        states.removeAt(stateIndex)
+        statesStyles.remove(stateIndex)
+        if(stateIndex == currentStateIndex) {
+            currentStateIndex = if(stateIndex == 0) 0 else stateIndex - 1
+        }
+        if(isAttachedToWindow){
+            populateView()
+            invalidate()
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -268,6 +288,7 @@ class MultiStateSwitch @JvmOverloads constructor(
      * Populates the states that have to be drawn.
      */
     private fun populateStates() {
+        statesSelectors.clear()
         for (i in states.indices) {
             try {
                 val selector = createStateSelector(i)
@@ -363,7 +384,7 @@ class MultiStateSwitch @JvmOverloads constructor(
     /**
      * Creates a bitmap from a view.
      */
-    fun createBitmapFromView(view: View): Bitmap {
+    private fun createBitmapFromView(view: View): Bitmap {
         val returnedBitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(returnedBitmap)
         view.background?.draw(canvas)
@@ -449,6 +470,7 @@ class MultiStateSwitch @JvmOverloads constructor(
      * Calculate the bounds of the view and the centers of the states.
      */
     private fun calculateBounds() {
+        statesCenters.clear()
         // Calculate background bounds
         val backgroundBounds = Rect().apply {
             left = drawingArea.left + shadowStartEndOverflowPx
@@ -486,7 +508,7 @@ class MultiStateSwitch @JvmOverloads constructor(
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (!isEnabled) return false
+        if (!isEnabled || states.isEmpty()) return false
         val rawX = event.x
         val normalizedX = getNormalizedX(event)
         currentStateCenter.x = when {

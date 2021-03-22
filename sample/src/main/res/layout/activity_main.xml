@@ -3,142 +3,205 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/defaultLabel"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            android:text="@string/default_label"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context=".MainActivity">
 
-        <com.davidmiguel.multistateswitch.MultiStateSwitch
-            android:id="@+id/defaultSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_marginTop="16dp"
-            android:paddingStart="40dp"
-            android:paddingEnd="40dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/defaultLabel" />
+            <TextView
+                android:id="@+id/defaultLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="@string/default_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/disabledLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/disabled_label"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/defaultSwitch" />
+            <com.davidmiguel.multistateswitch.MultiStateSwitch
+                android:id="@+id/defaultSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/defaultLabel" />
 
-        <com.davidmiguel.multistateswitch.MultiStateSwitch
-            android:id="@+id/disabledSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/disabledLabel"
-            app:multistateswitch_disabled_state_enabled="true"
-            app:multistateswitch_max_number_states="5" />
+            <TextView
+                android:id="@+id/disabledLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/disabled_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/defaultSwitch" />
 
-        <TextView
-            android:id="@+id/customizedLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/customized_label"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/disabledSwitch" />
+            <com.davidmiguel.multistateswitch.MultiStateSwitch
+                android:id="@+id/disabledSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/disabledLabel"
+                app:multistateswitch_disabled_state_enabled="true"
+                app:multistateswitch_max_number_states="5" />
 
-        <com.davidmiguel.multistateswitch.MultiStateSwitch
-            android:id="@+id/customizedSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="55dp"
-            android:layout_marginTop="16dp"
-            android:paddingStart="100dp"
-            android:paddingEnd="100dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/customizedLabel"
-            app:multistateswitch_disabled_state_enabled="true"
-            app:multistateswitch_disabled_state_index="1"
-            app:multistateswitch_selected_state_index="1" />
+            <TextView
+                android:id="@+id/customizedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/customized_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/disabledSwitch" />
 
-        <TextView
-            android:id="@+id/selectLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/select_label"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/customizedSwitch" />
+            <com.davidmiguel.multistateswitch.MultiStateSwitch
+                android:id="@+id/customizedSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:paddingStart="100dp"
+                android:paddingEnd="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customizedLabel"
+                app:multistateswitch_disabled_state_enabled="true"
+                app:multistateswitch_disabled_state_index="1"
+                app:multistateswitch_selected_state_index="1" />
 
-        <Button
-            android:id="@+id/select1Btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cold"
-            app:layout_constraintEnd_toStartOf="@id/select2Btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/selectLabel" />
+            <TextView
+                android:id="@+id/selectLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/select_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/customizedSwitch" />
 
-        <Button
-            android:id="@+id/select2Btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/off"
-            app:layout_constraintEnd_toStartOf="@id/select3Btn"
-            app:layout_constraintStart_toEndOf="@id/select1Btn"
-            app:layout_constraintTop_toBottomOf="@id/selectLabel" />
+            <Button
+                android:id="@+id/select1Btn"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cold"
+                app:layout_constraintEnd_toStartOf="@id/select2Btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selectLabel" />
 
-        <Button
-            android:id="@+id/select3Btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/select2Btn"
-            app:layout_constraintTop_toBottomOf="@id/selectLabel" />
+            <Button
+                android:id="@+id/select2Btn"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/off"
+                app:layout_constraintEnd_toStartOf="@id/select3Btn"
+                app:layout_constraintStart_toEndOf="@id/select1Btn"
+                app:layout_constraintTop_toBottomOf="@id/selectLabel" />
 
-        <TextView
-            android:id="@+id/listenerLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/listener_label"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/select1Btn" />
+            <Button
+                android:id="@+id/select3Btn"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/select2Btn"
+                app:layout_constraintTop_toBottomOf="@id/selectLabel" />
 
-        <TextView
-            android:id="@+id/listener"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/listener"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/listenerLabel" />
+            <TextView
+                android:id="@+id/addRemoveLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/add_remove_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/select3Btn" />
 
-        <Button
-            android:id="@+id/viewPagerBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/view_pager_example"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/listener" />
+            <TextView
+                android:id="@+id/noStates"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@string/no_states"
+                app:layout_constraintBottom_toBottomOf="@id/addRemoveSwitch"
+                app:layout_constraintEnd_toEndOf="@id/addRemoveSwitch"
+                app:layout_constraintStart_toStartOf="@id/addRemoveSwitch"
+                app:layout_constraintTop_toTopOf="@id/addRemoveSwitch" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.davidmiguel.multistateswitch.MultiStateSwitch
+                android:id="@+id/addRemoveSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginTop="8dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addRemoveLabel" />
+
+            <Button
+                android:id="@+id/addBtn"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/add"
+                app:layout_constraintEnd_toStartOf="@id/removeBtn"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addRemoveSwitch" />
+
+            <Button
+                android:id="@+id/removeBtn"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/remove"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/addBtn"
+                app:layout_constraintTop_toBottomOf="@id/addRemoveSwitch" />
+
+            <TextView
+                android:id="@+id/listenerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/listener_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/removeBtn" />
+
+            <TextView
+                android:id="@+id/listener"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/listener"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/listenerLabel" />
+
+            <Button
+                android:id="@+id/viewPagerBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/view_pager_example"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/listener" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

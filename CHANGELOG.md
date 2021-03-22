@@ -1,5 +1,10 @@
 # Changelog
 
+## `1.5.0` (22/03/21)
+
+- Update dependencies
+- Add Kotlin support
+
 ## `1.4.1` (10/08/19)
 
 - Prevent crash when OutOfMemoryError is thrown while creating bitmaps #4

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -23,15 +25,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
 dependencies {
     implementation project(':lib')
+    implementation appDependencies.kotlinStdLib
     implementation appDependencies.androidXCore
-    implementation appDependencies.annotations
+    implementation appDependencies.androidXAnnotations
     implementation appDependencies.appcompat
     implementation appDependencies.constraintLayout
 }

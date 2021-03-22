@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 ext.versionMajor = 1 // API Changes, adding big new feature, redesign the App
 ext.versionMinor = 4 // New features in a backwards-compatible manner
@@ -40,8 +42,9 @@ dependencies {
     // Lib Dependencies
     //----------------------------------------------------------------------------------------------
 
+    implementation appDependencies.kotlinStdLib
     implementation appDependencies.androidXCore
-    implementation appDependencies.annotations
+    implementation appDependencies.androidXAnnotations
 
     //----------------------------------------------------------------------------------------------
     // Testing Dependencies

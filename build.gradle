@@ -3,11 +3,12 @@ apply from: 'configurations.gradle'
 buildscript {
     repositories {
         google()
+        mavenCentral()
         jcenter()
-        
     }
     dependencies {
         apply from: 'dependencies.gradle'
+        classpath gradleDependencies.kotlinGradle
         classpath gradleDependencies.androidGradle
     }
 }
@@ -15,8 +16,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
-        
+        mavenCentral()
     }
 }
 

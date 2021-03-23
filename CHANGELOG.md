@@ -1,5 +1,10 @@
 # Changelog
 
+## `2.0.1` (23/03/21)
+
+- Listener called several times when dragging a state #10
+- NestedScrollView not considered as a VerticalScrollingContainer #11
+
 ## `2.0.0` (22/03/21)
 
 - Support remove states programmatically #6

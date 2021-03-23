@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import kotlin.math.abs
 
 // Num of states used in editor preview
@@ -570,7 +571,9 @@ class MultiStateSwitch @JvmOverloads constructor(
         var p = parent
         while (p is ViewGroup) {
             val parent = p
-            val canScrollVertically = parent.canScrollVertically(1) || parent.canScrollVertically(-1)
+            val canScrollVertically = parent.canScrollVertically(1) ||
+                    parent.canScrollVertically(-1) ||
+                    (parent is NestedScrollView && parent.maxScrollAmount > 0)
             if (canScrollVertically && parent.shouldDelayChildPressedState()) return true
             p = p.getParent()
         }

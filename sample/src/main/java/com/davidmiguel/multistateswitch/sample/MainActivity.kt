@@ -3,6 +3,7 @@ package com.davidmiguel.multistateswitch.sample
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(), StateListener {
     }
 
     override fun onStateSelected(stateIndex: Int, state: State) {
+        Log.d("asdf", getString(R.string.listener, stateIndex, state.text))
         binding.listener.text = getString(R.string.listener, stateIndex, state.text)
     }
 

@@ -149,7 +149,7 @@ class MultiStateSwitch @JvmOverloads constructor(
         if (hasMaxNumberStates() && getNumberStates() >= getMaxNumberStates()) return
         states.add(state)
         stateStyle?.run { statesStyles.put(getNumberStates() - 1, stateStyle) }
-        if(isAttachedToWindow){
+        if (isAttachedToWindow) {
             populateView()
             invalidate()
         }
@@ -217,10 +217,10 @@ class MultiStateSwitch @JvmOverloads constructor(
         require(stateIndex < getNumberStates()) { "State index doesn't exist" }
         states.removeAt(stateIndex)
         statesStyles.remove(stateIndex)
-        if(stateIndex == currentStateIndex) {
-            currentStateIndex = if(stateIndex == 0) 0 else stateIndex - 1
+        if (stateIndex == currentStateIndex) {
+            currentStateIndex = if (stateIndex == 0) 0 else stateIndex - 1
         }
-        if(isAttachedToWindow){
+        if (isAttachedToWindow) {
             populateView()
             invalidate()
         }
@@ -247,7 +247,7 @@ class MultiStateSwitch @JvmOverloads constructor(
             calculateDrawingSizes()
             populateStates()
             calculateBounds()
-            determineCenterPositions(false)
+            determineCenterPositions()
             initialized = true
         } catch (e: Exception) { // Ignored
         }
@@ -442,7 +442,7 @@ class MultiStateSwitch @JvmOverloads constructor(
             index >= states.size -> states.size
             else -> index
         }
-        setCurrentState(validIndex, true, notifyStateListeners)
+        setCurrentState(validIndex, notifyStateListeners)
         invalidate()
     }
 
@@ -451,18 +451,21 @@ class MultiStateSwitch @JvmOverloads constructor(
      */
     private fun setCurrentState(
             currentStateIndex: Int,
-            overwriteCurrentPosition: Boolean,
             notifyStateListeners: Boolean
     ) {
         if (notifyStateListeners) {
-            stateListeners.forEach { listener ->
-                listener.onStateSelected(currentStateIndex, states[currentStateIndex])
-            }
+            notifyListeners(currentStateIndex)
         }
-        if (this.currentStateIndex == currentStateIndex) return
         this.currentStateIndex = currentStateIndex
-        if (overwriteCurrentPosition) {
-            currentStateCenter.x = statesCenters[currentStateIndex].x
+        currentStateCenter.x = statesCenters[currentStateIndex].x
+    }
+
+    /**
+     * Notifies listeners of the new position.
+     */
+    private fun notifyListeners(currentStateIndex: Int = this.currentStateIndex) {
+        stateListeners.forEach { listener ->
+            listener.onStateSelected(currentStateIndex, states[currentStateIndex])
         }
     }
 
@@ -491,7 +494,7 @@ class MultiStateSwitch @JvmOverloads constructor(
     /**
      * Determines the center of each state.
      */
-    private fun determineCenterPositions(notifyStateListeners: Boolean) {
+    private fun determineCenterPositions() {
         // Determine current item
         var spaceBetween: Int
         var newCurrentItemIndex = 0
@@ -503,7 +506,7 @@ class MultiStateSwitch @JvmOverloads constructor(
                 minSpace = spaceBetween
             }
         }
-        setCurrentState(newCurrentItemIndex, false, notifyStateListeners)
+        this.currentStateIndex = newCurrentItemIndex
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -527,7 +530,7 @@ class MultiStateSwitch @JvmOverloads constructor(
                     parent.requestDisallowInterceptTouchEvent(true)
                     requestFocus()
                     stateIsPressed = true
-                    determineCenterPositions(true)
+                    determineCenterPositions()
                     invalidate()
                 }
             }
@@ -537,13 +540,14 @@ class MultiStateSwitch @JvmOverloads constructor(
                     parent.requestDisallowInterceptTouchEvent(true)
                 }
                 stateIsPressed = true
-                determineCenterPositions(true)
+                determineCenterPositions()
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
                 if (!stateIsPressed) { // Single touch and we are inside an scrolling container
-                    determineCenterPositions(true)
+                    determineCenterPositions()
                 }
+                notifyListeners()
                 stateIsPressed = false
                 currentStateCenter.x = statesCenters[currentStateIndex].x // Snap to selected state
                 invalidate()

@@ -9,6 +9,10 @@ android {
         targetCompatibility javaVersion
     }
 
+    kotlinOptions {
+        jvmTarget = kotlinJvmTarget
+    }
+
     compileSdkVersion androidConfig.compileSdkVersion
 
     defaultConfig {

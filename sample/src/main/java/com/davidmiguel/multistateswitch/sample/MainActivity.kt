@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), StateListener {
     }
 
     override fun onStateSelected(stateIndex: Int, state: State) {
-        Log.d("asdf", getString(R.string.listener, stateIndex, state.text))
+        Log.d("onStateSelected", getString(R.string.listener, stateIndex, state.text))
         binding.listener.text = getString(R.string.listener, stateIndex, state.text)
     }
 
@@ -45,26 +45,28 @@ class MainActivity : AppCompatActivity(), StateListener {
 
     private fun setupCustomizedSwitch() {
         binding.customizedSwitch.addStateFromString(
-                "Cold",
-                StateStyle.Builder()
-                        .withSelectedBackgroundColor(Color.BLUE)
-                        .build()
+            "Cold",
+            StateStyle.Builder()
+                .withSelectedBackgroundColor(Color.BLUE)
+                .build()
         )
         binding.customizedSwitch.addState(
-                State(
-                    text = "ON",
-                    selectedText = "OFF",
-                    disabledText = "OFF"
-                ),
-                StateStyle.Builder()
-                        .withTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                        .withDisabledBackgroundColor(Color.BLACK)
-                        .withDisabledTextColor(Color.WHITE)
-                        .build()
+            State(
+                text = "ON",
+                selectedText = "OFF",
+                disabledText = "OFF"
+            ),
+            StateStyle.Builder()
+                .withTextColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .withDisabledBackgroundColor(Color.BLACK)
+                .withDisabledTextColor(Color.WHITE)
+                .build()
         )
-        binding.customizedSwitch.addStateFromString("Hot", StateStyle.Builder()
+        binding.customizedSwitch.addStateFromString(
+            "Hot", StateStyle.Builder()
                 .withSelectedBackgroundColor(Color.RED)
-                .build())
+                .build()
+        )
         binding.customizedSwitch.addStateListener(this)
         setupCustomizedButtons()
     }

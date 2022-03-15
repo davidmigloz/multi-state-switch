@@ -2,7 +2,13 @@ package com.davidmiguel.multistateswitch
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BlurMaskFilter
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Point
+import android.graphics.Rect
+import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -11,7 +17,11 @@ import android.util.AttributeSet
 import android.util.Log
 import android.util.SparseArray
 import android.util.TypedValue
-import android.view.*
+import android.view.Gravity
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewConfiguration
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.Dimension
@@ -28,10 +38,10 @@ private const val SHADOW_BOTTOM_OVERFLOW_DP = 10f
 
 @Suppress("MemberVisibilityCanBePrivate", "unused")
 class MultiStateSwitch @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = R.attr.multistateswitch_MultiStateSwitchStyle,
-        defStyleRes: Int = R.style.multistateswitch_MultiStateSwitch,
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = R.attr.multistateswitch_MultiStateSwitchStyle,
+    defStyleRes: Int = R.style.multistateswitch_MultiStateSwitch,
 ) : View(context, attrs, defStyleAttr, defStyleRes) {
 
     // START Styleable properties
@@ -309,33 +319,34 @@ class MultiStateSwitch @JvmOverloads constructor(
         val stateStyle = statesStyles[stateIndex] ?: StateStyle.Builder().build()
         // Create the drawable representing the state (normal, selected or disabled)
         val bitmapNormal = createStateDrawable(
-                stateText = text,
-                textWidth = stateSize.x,
-                textHeight = stateSize.y,
-                backgroundColor = 0,
-                shadow = false,
-                textColor = stateStyle.textColor ?: textColor,
-                textSize = stateStyle.textSize ?: textSize,
-                textTypeface = stateStyle.textTypeface ?: textTypeface
+            stateText = text,
+            textWidth = stateSize.x,
+            textHeight = stateSize.y,
+            backgroundColor = 0,
+            shadow = false,
+            textColor = stateStyle.textColor ?: textColor,
+            textSize = stateStyle.textSize ?: textSize,
+            textTypeface = stateStyle.textTypeface ?: textTypeface
         )
         val bitmapSelected = if (disabledStateEnabled && stateIndex == disableStateIndex) createStateDrawable(
-                stateText = disabledText,
-                textWidth = stateSize.x,
-                textHeight = stateSize.y,
-                backgroundColor = stateStyle.disabledBackgroundColor ?: disabledBackgroundColor,
-                shadow = true,
-                textColor = stateStyle.disabledTextColor ?: disabledTextColor,
-                textSize = stateStyle.disabledTextSize ?: disabledTextSize,
-                textTypeface = stateStyle.disabledTextTypeface ?: textTypeface
+            stateText = disabledText,
+            textWidth = stateSize.x,
+            textHeight = stateSize.y,
+            backgroundColor = stateStyle.disabledBackgroundColor ?: disabledBackgroundColor,
+            shadow = true,
+            textColor = stateStyle.disabledTextColor ?: disabledTextColor,
+            textSize = stateStyle.disabledTextSize ?: disabledTextSize,
+            textTypeface = stateStyle.disabledTextTypeface ?: textTypeface
         )
-        else createStateDrawable(selectedText,
-                textWidth = stateSize.x,
-                textHeight = stateSize.y,
-                backgroundColor = stateStyle.selectedBackgroundColor ?: selectedBackgroundColor,
-                shadow = true,
-                textColor = stateStyle.selectedTextColor ?: selectedTextColor,
-                textSize = stateStyle.selectedTextSize ?: selectedTextSize,
-                textTypeface = stateStyle.selectedTextTypeface ?: textTypeface
+        else createStateDrawable(
+            selectedText,
+            textWidth = stateSize.x,
+            textHeight = stateSize.y,
+            backgroundColor = stateStyle.selectedBackgroundColor ?: selectedBackgroundColor,
+            shadow = true,
+            textColor = stateStyle.selectedTextColor ?: selectedTextColor,
+            textSize = stateStyle.selectedTextSize ?: selectedTextSize,
+            textTypeface = stateStyle.selectedTextTypeface ?: textTypeface
         )
         return StateSelector(bitmapNormal, bitmapSelected)
     }
@@ -344,14 +355,14 @@ class MultiStateSwitch @JvmOverloads constructor(
      * Creates a drawable that represents the state with given styles.
      */
     private fun createStateDrawable(
-            stateText: String,
-            @Dimension textWidth: Int,
-            @Dimension textHeight: Int,
-            @ColorInt backgroundColor: Int,
-            shadow: Boolean,
-            @ColorInt textColor: Int,
-            @Dimension textSize: Int,
-            textTypeface: Typeface?
+        stateText: String,
+        @Dimension textWidth: Int,
+        @Dimension textHeight: Int,
+        @ColorInt backgroundColor: Int,
+        shadow: Boolean,
+        @ColorInt textColor: Int,
+        @Dimension textSize: Int,
+        textTypeface: Typeface?
     ): BitmapDrawable {
         // Create text view
         val stateTV = TextView(context).apply {
@@ -371,8 +382,10 @@ class MultiStateSwitch @JvmOverloads constructor(
             }
             isDrawingCacheEnabled = true
             // Draw it in cache
-            measure(MeasureSpec.makeMeasureSpec(0 /* any */, MeasureSpec.UNSPECIFIED),
-                    MeasureSpec.makeMeasureSpec(0 /* any */, MeasureSpec.UNSPECIFIED))
+            measure(
+                MeasureSpec.makeMeasureSpec(0 /* any */, MeasureSpec.UNSPECIFIED),
+                MeasureSpec.makeMeasureSpec(0 /* any */, MeasureSpec.UNSPECIFIED)
+            )
             layout(0, 0, measuredWidth, measuredHeight)
         }
         // Convert text view to bitmap
@@ -451,8 +464,8 @@ class MultiStateSwitch @JvmOverloads constructor(
      * Sets current state and notifies the listeners.
      */
     private fun setCurrentState(
-            currentStateIndex: Int,
-            notifyStateListeners: Boolean
+        currentStateIndex: Int,
+        notifyStateListeners: Boolean
     ) {
         if (notifyStateListeners) {
             notifyListeners(currentStateIndex)
@@ -599,9 +612,10 @@ class MultiStateSwitch @JvmOverloads constructor(
      */
     private fun drawState(canvas: Canvas, stateDrawable: Drawable, stateCenter: Point) {
         stateDrawable.setBounds(
-                stateCenter.x - stateRadius.x - shadowStartEndOverflowPx,
-                stateCenter.y - stateRadius.y,
-                stateCenter.x + stateRadius.x + shadowStartEndOverflowPx, shadowHeight)
+            stateCenter.x - stateRadius.x - shadowStartEndOverflowPx,
+            stateCenter.y - stateRadius.y,
+            stateCenter.x + stateRadius.x + shadowStartEndOverflowPx, shadowHeight
+        )
         stateDrawable.draw(canvas)
     }
 

@@ -8,30 +8,30 @@ import androidx.annotation.Dimension
  * Defines the colors of one state.
  */
 data class StateStyle(
-        @ColorInt val textColor: Int?,
-        @Dimension val textSize: Int?,
-        val textTypeface: Typeface?,
-        @ColorInt val selectedBackgroundColor: Int?,
-        @ColorInt val selectedTextColor: Int?,
-        @Dimension val selectedTextSize: Int?,
-        val selectedTextTypeface: Typeface?,
-        @ColorInt val disabledBackgroundColor: Int?,
-        @ColorInt val disabledTextColor: Int?,
-        @Dimension val disabledTextSize: Int?,
-        val disabledTextTypeface: Typeface?
+    @ColorInt val textColor: Int?,
+    @Dimension val textSize: Int?,
+    val textTypeface: Typeface?,
+    @ColorInt val selectedBackgroundColor: Int?,
+    @ColorInt val selectedTextColor: Int?,
+    @Dimension val selectedTextSize: Int?,
+    val selectedTextTypeface: Typeface?,
+    @ColorInt val disabledBackgroundColor: Int?,
+    @ColorInt val disabledTextColor: Int?,
+    @Dimension val disabledTextSize: Int?,
+    val disabledTextTypeface: Typeface?
 ) {
     @Suppress("unused")
     class Builder {
-        private var textColor : Int? = null
-        private var textSize : Int? = null
+        private var textColor: Int? = null
+        private var textSize: Int? = null
         private var textTypeface: Typeface? = null
-        private var selectedBackgroundColor : Int? = null
-        private var selectedTextColor : Int? = null
-        private var selectedTextSize : Int? = null
+        private var selectedBackgroundColor: Int? = null
+        private var selectedTextColor: Int? = null
+        private var selectedTextSize: Int? = null
         private var selectedTextTypeface: Typeface? = null
-        private var disabledBackgroundColor : Int? = null
-        private var disabledTextColor : Int? = null
-        private var disabledTextSize : Int? = null
+        private var disabledBackgroundColor: Int? = null
+        private var disabledTextColor: Int? = null
+        private var disabledTextSize: Int? = null
         private var disabledTextTypeface: Typeface? = null
 
         /**
@@ -124,17 +124,17 @@ data class StateStyle(
 
         fun build(): StateStyle {
             return StateStyle(
-                    textColor,
-                    textSize,
-                    textTypeface,
-                    selectedBackgroundColor,
-                    selectedTextColor,
-                    selectedTextSize,
-                    selectedTextTypeface,
-                    disabledBackgroundColor,
-                    disabledTextColor,
-                    disabledTextSize,
-                    disabledTextTypeface
+                textColor,
+                textSize,
+                textTypeface,
+                selectedBackgroundColor,
+                selectedTextColor,
+                selectedTextSize,
+                selectedTextTypeface,
+                disabledBackgroundColor,
+                disabledTextColor,
+                disabledTextSize,
+                disabledTextTypeface
             )
         }
     }

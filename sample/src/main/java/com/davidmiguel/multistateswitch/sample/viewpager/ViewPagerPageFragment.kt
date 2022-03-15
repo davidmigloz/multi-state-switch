@@ -16,9 +16,9 @@ class ViewPagerPageFragment : Fragment() {
     private var currentPage: Int = 0
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentViewPagerPageBinding.inflate(inflater, container, false)
         currentPage = arguments?.getInt(ARG_PAGE) ?: 0

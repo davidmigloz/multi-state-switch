@@ -625,6 +625,17 @@ class MultiStateSwitch @JvmOverloads constructor(
     fun getNumberStates(): Int = states.size
 
     /**
+     * Returns current state.
+     * Note: the states should be populated already, otherwise an exception will be thrown.
+     */
+    fun getCurrentState(): State = states.getOrNull(currentStateIndex) ?: error("No current state")
+
+    /**
+     * Returns the index of the current state.
+     */
+    fun getCurrentStateIndex(): Int = currentStateIndex
+
+    /**
      * Sets the max number of states. If you try to add a new state but the number of states is
      * already maxNumberStates the state will be ignored. By default is -1 which means that there
      * is no restriction.

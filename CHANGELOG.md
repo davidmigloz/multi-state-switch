@@ -1,5 +1,14 @@
 # Changelog
 
+## `2.1.0` (15/03/22)
+
+- Add getCurrentState() and getCurrentStateIndex() methods
+- Update dependencies
+- Target Android 12 (API 31)
+- Migrate to Java 11
+- Remove buildToolsVersion
+- Remove JCenter
+
 ## `2.0.1` (23/03/21)
 
 - Listener called several times when dragging a state #10

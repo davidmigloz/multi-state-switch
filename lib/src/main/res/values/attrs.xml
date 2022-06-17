@@ -5,6 +5,7 @@
     <declare-styleable name="MultiStateSwitch">
 
         <attr name="multistateswitch_background_color" format="color|reference" />
+        <attr name="multistateswitch_background_radius" format="float|reference" />
         <attr name="multistateswitch_text_color" format="color|reference" />
         <attr name="multistateswitch_text_size" format="dimension|reference" />
         <attr name="multistateswitch_selected_state_index" format="integer|reference" />

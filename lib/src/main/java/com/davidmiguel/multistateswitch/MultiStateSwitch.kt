@@ -31,6 +31,7 @@ import kotlin.math.abs
 
 // Num of states used in editor preview
 private const val DEFAULT_NUM_STATES = 3
+private const val DEFAULT_RADIUS = 100f
 
 // Overflow of the shadow
 private const val SHADOW_TOP_OVERFLOW_DP = 2f
@@ -47,6 +48,7 @@ class MultiStateSwitch @JvmOverloads constructor(
     // START Styleable properties
     @ColorInt
     private var switchBackgroundColor: Int = 0
+    private var switchBackgroundRadius: Float = 0f
 
     @ColorInt
     private var textColor: Int = 0
@@ -115,6 +117,7 @@ class MultiStateSwitch @JvmOverloads constructor(
         val a = context.obtainStyledAttributes(attrs, R.styleable.MultiStateSwitch, defStyleAttr, defStyleRes)
         try {
             switchBackgroundColor = a.getColor(R.styleable.MultiStateSwitch_multistateswitch_background_color, 0)
+            switchBackgroundRadius = a.getFloat(R.styleable.MultiStateSwitch_multistateswitch_background_radius, DEFAULT_RADIUS)
             textColor = a.getColor(R.styleable.MultiStateSwitch_multistateswitch_text_color, 0)
             textSize = a.getDimensionPixelSize(R.styleable.MultiStateSwitch_multistateswitch_text_size, 0)
             currentStateIndex = a.getInt(R.styleable.MultiStateSwitch_multistateswitch_selected_state_index, 0)
@@ -138,6 +141,7 @@ class MultiStateSwitch @JvmOverloads constructor(
         shadowBottomOverflowPx = SHADOW_BOTTOM_OVERFLOW_DP.dp2px.toInt()
         // Background
         background = ContextCompat.getDrawable(context, R.drawable.multistateswitch_background)!!.mutate() as GradientDrawable
+        background.cornerRadius = switchBackgroundRadius.dp2px
         background.setColor(switchBackgroundColor)
     }
 

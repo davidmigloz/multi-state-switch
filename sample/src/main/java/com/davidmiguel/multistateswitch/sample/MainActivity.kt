@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(), StateListener {
         setupDefaultSwitch()
         setupDisabledSwitch()
         setupCustomizedSwitch()
+        setupCustomizedRadiusSwitch()
         setupAddRemoveSwitch()
         setupViewPagerBtn()
     }
@@ -69,6 +70,11 @@ class MainActivity : AppCompatActivity(), StateListener {
         )
         binding.customizedSwitch.addStateListener(this)
         setupCustomizedButtons()
+    }
+
+    private fun setupCustomizedRadiusSwitch() {
+        binding.radiusSwitch.addStatesFromStrings(listOf("Off", "x2", "x3", "x4", "x5"))
+        binding.radiusSwitch.addStateListener(this)
     }
 
     private fun setupCustomizedButtons() {

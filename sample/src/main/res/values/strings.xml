@@ -3,6 +3,7 @@
     <string name="default_label">Default settings:</string>
     <string name="disabled_label">With disabled state:</string>
     <string name="customized_label">Customized:</string>
+    <string name="customized_radius_label">Customized Radius:</string>
     <string name="add_remove_label">Add or remove states:</string>
     <string name="listener_label">Last selected state:</string>
     <string name="listener">{ index=%d, text=%s }</string>

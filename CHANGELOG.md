@@ -1,5 +1,10 @@
 # Changelog
 
+## `2.2.0` (17/06/22)
+
+- Able to configure background corner radius (#14) | Thanks @delacrixmorgan
+- Update dependencies
+
 ## `2.1.0` (15/03/22)
 
 - Add getCurrentState() and getCurrentStateIndex() methods

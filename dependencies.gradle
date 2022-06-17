@@ -5,9 +5,9 @@ ext {
     //----------------------------------------------------------------------------------------------
 
     // Kotlin version : https://kotlinlang.org/docs/reference/using-gradle.html#plugin-and-versions
-    kotlin = '1.6.10'
+    kotlin = '1.7.0'
     // Android Plugin for Gradle : https://developer.android.com/studio/releases/gradle-plugin.html#updating-plugin
-    androidGradle = '7.1.2'
+    androidGradle = '7.2.1'
 
     gradleDependencies = [
             kotlinGradle : "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin",
@@ -19,15 +19,15 @@ ext {
     //----------------------------------------------------------------------------------------------
 
     // AndroidX Core : https://developer.android.com/jetpack/androidx/releases/core
-    androidXCore = "1.7.0"
+    androidXCore = "1.8.0"
     // Android Annotations : https://developer.android.com/jetpack/androidx/releases/annotation
-    androidXAnnotations = "1.3.0"
+    androidXAnnotations = "1.4.0"
     // AppCompat : https://developer.android.com/jetpack/androidx/releases/appcompat
-    appcompat = '1.4.1'
+    appcompat = '1.4.2'
     // Material Components : https://github.com/material-components/material-components-android/releases
-    materialComponents = '1.5.0'
+    materialComponents = '1.6.1'
     // Constraint Layout : https://developer.android.com/jetpack/androidx/releases/constraintlayout
-    constraintLayout = '2.1.3'
+    constraintLayout = '2.1.4'
     // ViewPager2 : https://developer.android.com/jetpack/androidx/releases/viewpager2
     viewPager2 = '1.0.0'
 
@@ -47,7 +47,7 @@ ext {
     //----------------------------------------------------------------------------------------------
 
     // Timber (logger) : https://github.com/JakeWharton/timber
-    timber = '4.7.1'
+    timber = '5.0.1'
 
     debugDependencies = [
             timber: "com.jakewharton.timber:timber:${timber}",
@@ -60,7 +60,7 @@ ext {
     // JUnit (unit testing framework) : http://junit.org/junit4/
     junit = '4.13.2'
     // Mockito (mocking framework) : http://site.mockito.org/
-    mockito = '4.4.0'
+    mockito = '4.6.1'
 
     testDependencies = [
             junit  : "junit:junit:${junit}",

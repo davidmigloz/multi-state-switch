@@ -76,6 +76,7 @@ switch.addState(
 #### Attributes
 
 - `app:multistateswitch_background_color=[color|reference]`
+- `app:multistateswitch_background_radius=[float|reference]`
 - `app:multistateswitch_text_color=[color|reference]`
 - `app:multistateswitch_text_size=[dimension|reference]`
 - `app:multistateswitch_selected_state_index=[integer|reference]`
@@ -124,7 +125,7 @@ Pull request are very appreciated.
 
 ## License
 
-Copyright (c) 2018 David Miguel Lozano
+Copyright (c) 2022 David Miguel Lozano
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
